@@ -15,7 +15,7 @@ if($method == 'POST'){
     $date_time = $json->queryResult->outputContexts[0]->parameters->date_time->date_time;
     $number = $json->queryResult->outputContexts[0]->parameters->number;
     $speech = "Reservation done for ".$number." people on ".$date_time;
-    $query = "insert into Bookings(NoM,DateTime) values ($number,$date_time);";
+    $query = "INSERT INTO Bookings(ID, NoM, DateTime) VALUES ('',$number,$date_time)";
     mysqli_query($conn,$query);
     $response = new \stdClass();
     $response->fulfillmentText = $speech;
