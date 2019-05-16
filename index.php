@@ -6,26 +6,9 @@ $method = $_SERVER['REQUEST_METHOD'];
 if($method == 'POST'){
     $requestBody = file_get_contents('php://input');
     $json = json_decode($requestBody);
-
-    $text = $json->result->parameters->text;
-
-    switch ($text) {
-        case 'hi':
-            $speech = "Hi, Nice to meet you";
-            break;
-
-        case 'bye':
-            $speech = "Bye, good night";
-            break;
-
-        case 'anything':
-            $speech = "Yes, you can type anything here.";
-            break;
-
-        default:
-            $speech = "Sorry, I didnt get that. Please ask me something else.";
-            break;
-    }
+    $date_time = $json->queryResult->outputContexts[0]->date_time;
+    $number = $json->queryResult->outputContexts[0]->number;
+    $speech = "Reservation done for ".$number." people on ".$date_time;
 
     $response = new \stdClass();
     $response->fulfillmentText = $speech;
@@ -38,3 +21,7 @@ else
 }
 
 ?>
+
+
+
+
