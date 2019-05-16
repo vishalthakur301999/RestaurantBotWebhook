@@ -14,9 +14,9 @@ if($method == 'POST'){
     $json = json_decode($requestBody);
     $date_time = $json->queryResult->outputContexts[0]->parameters->date_time->date_time;
     $number = $json->queryResult->outputContexts[0]->parameters->number;
-    $date_time = $date_time->format('Y-m-d, H:i:s');
+    $date_time = substr($date_time,0,-6);
+    $query = "INSERT INTO Bookings(ID, NoM, DateTime) VALUES ('',$number,'$date_time')";
     $speech = "Reservation done for ".$number." people on ".$date_time;
-    $query = "INSERT INTO Bookings(ID, NoM, DateTime) VALUES ('',$number,$date_time)";
     mysqli_query($conn,$query);
     $response = new \stdClass();
     $response->fulfillmentText = $speech;
